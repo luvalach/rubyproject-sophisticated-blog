@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+  resources :posts
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  resources :comments
+  resources :comments
+  resources :blogs
   devise_for :users
+
+  root 'blogs#index' # relative to views forlder
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -35,8 +42,7 @@ Rails.application.routes.draw do
 
   # Example resource route with more complex sub-resources:
   #   resources :products do
-  #     resources :comments
-  #     resources :sales do
+  #     #     resources :sales do
   #       get 'recent', on: :collection
   #     end
   #   end

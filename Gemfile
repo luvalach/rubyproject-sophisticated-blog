@@ -50,4 +50,4 @@ end
 
 gem 'devise'
 gem 'rails_admin'
-
+gem 'pg'
