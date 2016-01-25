@@ -1,6 +1,7 @@
 class BlogsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
+  before_action :set_my_blog, only: [:myblog]
   
 
   # GET /blogs
@@ -53,6 +54,14 @@ class BlogsController < ApplicationController
     end
   end
 
+  def myblog
+    if @blog
+      redirect_to edit_blog_path(@blog.id)
+    else 
+      raise CanCan::AccessDenied.new("Not authorized!", :create, Blog)
+    end
+  end
+
   # DELETE /blogs/1
   # DELETE /blogs/1.json
   def destroy
@@ -67,6 +76,17 @@ class BlogsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_blog
       @blog = Blog.find(params[:id])
+    end
+
+    def set_my_blog
+      if current_user
+	@blog = current_user.blog
+        unless @blog
+          @blog = Blog.new
+          @blog.save
+        end
+      else
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
