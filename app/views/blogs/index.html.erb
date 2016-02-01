@@ -15,6 +15,16 @@
       <tr id="blog-row-<%= blog.id %>">
         <td class="blog-author"><%= link_to blog.name, blog %></td>
         <td class="blog-title"><%= blog.user.username %></td>
+        <td>
+          <% if can? :update, blog %>
+            <%= link_to 'Edit', edit_blog_path(blog) %>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :destroy, blog %>
+            <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+        </td>
       </tr>
   <% end %>
   </tbody>

@@ -16,9 +16,21 @@
       <tr>
         <td><%= blog.name %></td>
         <td><%= blog.user %></td>
-        <td><%= link_to 'Show', blog %></td>
-        <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-        <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if can? :read, blog %>
+            <%= link_to 'Show', blog %>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :update, blog %>
+            <%= link_to 'Edit', edit_blog_path(blog) %>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :destroy, blog %>
+            <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %> 
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -27,3 +39,4 @@
 <br>
 
 <%= link_to 'New Blog', new_blog_path %>
+<% console %>
