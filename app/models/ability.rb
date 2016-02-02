@@ -37,7 +37,7 @@ class Ability
         if user.has_role? :admin
           can :manage, :all
         else
-          can [:update, :destroy], Blog, :user_id => user.id
+          can [:update, :destroy, :myblog], Blog, :user_id => user.id
           can [:update, :destroy], Post, :user_id => user.id
           # can [:update, :destroy], Comment, :user_id => user.id
 	        can [:update, :destroy], Like, :user_id => user.id

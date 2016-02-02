@@ -57,8 +57,12 @@ class BlogsController < ApplicationController
   end
 
   def myblog
-    if @blog
-      redirect_to edit_blog_path(@blog.id)
+    if current_user
+      if current_user.blog
+        redirect_to blog_path(current_user.blog.id)
+      else 
+        redirect_to create_blog_path
+      end
     else
       raise CanCan::AccessDenied.new("Not authorized!", :create, Blog)
     end
@@ -93,6 +97,6 @@ class BlogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:name)
+      params.require(:blog).permit(:name, :description, :publish, :commentable, :comment_needs_approval)
     end
 end
