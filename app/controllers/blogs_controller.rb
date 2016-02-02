@@ -3,7 +3,6 @@ class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
 
   load_and_authorize_resource
-  before_action :set_my_blog, only: [:myblog]
 
 
   # GET /blogs
@@ -61,7 +60,7 @@ class BlogsController < ApplicationController
       if current_user.blog
         redirect_to blog_path(current_user.blog.id)
       else 
-        redirect_to create_blog_path
+        redirect_to new_blog_path
       end
     else
       raise CanCan::AccessDenied.new("Not authorized!", :create, Blog)
@@ -82,17 +81,6 @@ class BlogsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_blog
       @blog = Blog.find(params[:id])
-    end
-
-    def set_my_blog
-      if current_user
-	@blog = current_user.blog
-        unless @blog
-          @blog = Blog.new
-          @blog.save
-        end
-      else
-      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
