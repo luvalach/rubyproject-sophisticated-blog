@@ -1,0 +1,58 @@
+<%= form_for @blog, :html => { :class => "form-horizontal post" } do |f| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+      <ul>
+      <% @blog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'form-control', :id => 'blog_name' %>
+      </div>
+      <%= error_span(@blog[:name]) %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :description, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :description, :class => 'form-control', :id => 'blog_description' %>
+      </div>
+      <%= error_span(@blog[:description]) %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :publish do %>
+        <%= f.check_box :publish %>
+        Publish my blog
+      <% end %>
+      <%= error_span(@blog[:publish]) %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :commentable do %>
+        <%= f.check_box :commentable %>
+        Users can comment my posts
+      <% end %>
+      <%= error_span(@blog[:commentable]) %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :comment_needs_approval do %>
+        <%= f.check_box :comment_needs_approval %>
+        Comments needs my approval 
+      <% end %>
+      <%= error_span(@blog[:comment_needs_approval]) %>
+    </div>
+
+
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                posts_path, :class => 'btn btn-default' %>
+<% end %>
