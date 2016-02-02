@@ -1,42 +1,42 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Blog -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
 
-<h1>Listing Blogs</h1>
-
-<table>
+<table class="table table-striped">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @blogs.each do |blog| %>
-      <tr>
-        <td><%= blog.name %></td>
-        <td><%= blog.user %></td>
-        <td>
-          <% if can? :read, blog %>
-            <%= link_to 'Show', blog %>
-          <% end %>
-        </td>
-        <td>
-          <% if can? :update, blog %>
-            <%= link_to 'Edit', edit_blog_path(blog) %>
-          <% end %>
-        </td>
-        <td>
-          <% if can? :destroy, blog %>
-            <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %> 
-        </td>
-      </tr>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Author</th>
+    <% if current_user and current_user.has_role? :admin %>
+      <th>Puhlished</th>
+      <th>Commentable</th>
+      <th>Approvals</th>     
+      <th>Edit</th>
+      <th>Destroy</th>           
     <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <% @blogs.each do |blog| %>
+      <tr id="blog-row-<%= blog.id %>">
+        <td class="blog-name"><%= link_to blog.name, blog %></td>
+        <td class="blog-description"><%= blog.description %></td>
+        <td class="blog-author"><%= blog.user.username %></td>
+        <% if current_user.has_role? :admin %>
+          <td class="blog-publish"><%= blog.publish %></td>
+          <td class="blog-commentable"><%= blog.commentable %></td>
+          <td class="blog-comment_needs_approval"><%= blog.comment_needs_approval %></td>
+          <td>
+              <%= link_to 'Edit', edit_blog_path(blog) %>
+          </td>
+          <td>    
+ 	      <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>              
+        <% end %>
+      </tr>
+  <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Blog', new_blog_path %>
 <% console %>

@@ -6,25 +6,35 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th><%= model_class.human_attribute_name(:name) %></th>
-    <th><%= model_class.human_attribute_name(:user) %></th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Author</th>
+    <% if current_user and current_user.has_role? :admin %>
+      <th>Puhlished</th>
+      <th>Commentable</th>
+      <th>Approvals</th>     
+      <th>Edit</th>
+      <th>Destroy</th>           
+    <% end %>
   </tr>
   </thead>
   <tbody>
   <% @blogs.each do |blog| %>
       <tr id="blog-row-<%= blog.id %>">
-        <td class="blog-author"><%= link_to blog.name, blog %></td>
-        <td class="blog-title"><%= blog.user.username %></td>
-        <td>
-          <% if can? :update, blog %>
-            <%= link_to 'Edit', edit_blog_path(blog) %>
-          <% end %>
-        </td>
-        <td>
-          <% if can? :destroy, blog %>
-            <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %>
-        </td>
+        <td class="blog-name"><%= link_to blog.name, blog %></td>
+        <td class="blog-description"><%= blog.description %></td>
+        <td class="blog-author"><%= blog.user.username %></td>
+        <% if current_user and current_user.has_role? :admin %>
+          <td class="blog-publish"><%= blog.publish %></td>
+          <td class="blog-commentable"><%= blog.commentable %></td>
+          <td class="blog-comment_needs_approval"><%= blog.comment_needs_approval %></td>
+          <td>
+              <%= link_to 'Edit', edit_blog_path(blog) %>
+          </td>
+          <td>    
+ 	      <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>              
+        <% end %>
       </tr>
   <% end %>
   </tbody>
