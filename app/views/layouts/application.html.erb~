@@ -5,6 +5,12 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+  <script>tinymce.init({ selector:'textarea', 
+        readonly : 1,
+inline: true,
+  toolbar: ''
+});</script>
 </head>
 <body>
 
@@ -23,7 +29,7 @@
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
           <% if current_user.has_role? :admin %>
-              <li><<%= link_to "Rails Admin", rails_admin_path %></li>
+              <li><%= link_to "Rails Admin", rails_admin_path %></li>
           <% end %>
           <li><%= link_to t('My blog', :default => t("helpers.links.my blog")), blogs_myblog_path %></li>
         <% end %>

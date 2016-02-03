@@ -19,7 +19,7 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>
-        <td><%= post.body.html_safe %></td>
+        <td><%= post.body %></td>
         <td><%= post.user %></td>
         <td><%= post.blog %></td>
         <td><%= post.can_be_commented %></td>

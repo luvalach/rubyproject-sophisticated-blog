@@ -40,4 +40,3 @@
     <%= f.submit %>
   </div>
 <% end %>
-<%= tinymce %>
