@@ -1,15 +1,22 @@
 Rails.application.routes.draw do
-  resources :posts
+
+  # admin part
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  resources :comments
-  get 'blogs/myblog' => 'blogs#myblog'
+
+  #blogs
   resources :blogs
+  get 'blogs/myblog' => 'blogs#myblog'
+
+  #posts
+  resources :posts
+  get 'blogs/:blog_id/new' => 'posts#new_post', :as => 'blogs_post'
+
+  #comments
+  resources :comments
+
   devise_for :users
 
   root 'blogs#index' # relative to views forlder
-
-  
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

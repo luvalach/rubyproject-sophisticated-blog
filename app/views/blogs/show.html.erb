@@ -10,5 +10,12 @@
   <%= @blog.user.username %>
 </p>
 
+<%= link_to 'New Post', blogs_post_path(@blog) %> |
 <%= link_to 'Edit', edit_blog_path(@blog) %> |
 <%= link_to 'Back', blogs_path %>
+
+<table>
+  <tbody>
+  <%= render :partial => "posts/show_header", :collection => @blog.posts, :as => :post %>
+  </tbody>
+</table>

@@ -9,11 +9,13 @@ class BlogsController < ApplicationController
   # GET /blogs.json
   def index
     @blogs = Blog.all
+    print current_user.has_role? :admin unless current_user.nil?
   end
 
   # GET /blogs/1
   # GET /blogs/1.json
   def show
+    @blog.posts.map { |p| puts p.title}
   end
 
   # GET /blogs/new
@@ -55,6 +57,7 @@ class BlogsController < ApplicationController
     end
   end
 
+  # GET /blogs/myblog
   def myblog
     if current_user
       if current_user.blog

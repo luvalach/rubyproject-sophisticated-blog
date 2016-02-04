@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_blog, only: :new_post
 
   # GET /posts
   # GET /posts.json
@@ -18,6 +19,12 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  # GET /blogs/:blog_id/new
+  def new_post
+    new
+    render :new
+  end
+
   # GET /posts/1/edit
   def edit
   end
@@ -26,10 +33,12 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
+    @post.user = current_user
+    @blog = Blog.find(post_params[:blog_id])
+    @post.blog = @blog
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { redirect_to @blog, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -63,6 +72,10 @@ class PostsController < ApplicationController
   end
 
   private
+    def set_blog
+      @blog = Blog.find(params[:blog_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
@@ -70,6 +83,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body, :user_id, :blog_id, :can_be_commented, :comments_needs_approval)
+      params.require(:post).permit(:title, :body, :can_be_commented, :comments_needs_approval, :blog_id)
     end
 end
