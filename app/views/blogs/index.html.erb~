@@ -24,7 +24,7 @@
         <td class="blog-name"><%= link_to blog.name, blog %></td>
         <td class="blog-description"><%= blog.description %></td>
         <td class="blog-author"><%= blog.user.username %></td>
-        <% if current_user.has_role? :admin %>
+        <% if current_user and current_user.has_role? :admin %>
           <td class="blog-publish"><%= blog.publish %></td>
           <td class="blog-commentable"><%= blog.commentable %></td>
           <td class="blog-comment_needs_approval"><%= blog.comment_needs_approval %></td>

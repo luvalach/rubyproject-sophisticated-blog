@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   #blogs
-  resources :blogs
   get 'blogs/myblog' => 'blogs#myblog'
+  resources :blogs
+  
 
   #posts
   resources :posts
