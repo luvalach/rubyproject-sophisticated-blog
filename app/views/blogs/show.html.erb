@@ -10,12 +10,30 @@
   <%= @blog.user.username %>
 </p>
 
+<p>
+  <strong>Description:</strong>
+  <%= @blog.description %>
+</p>
+
 <%= link_to 'New Post', blogs_post_path(@blog) %> |
 <%= link_to 'Edit', edit_blog_path(@blog) %> |
 <%= link_to 'Back', blogs_path %>
 
-<table>
+<table class="table table-striped">
   <tbody>
-  <%= render :partial => "posts/show_header", :collection => @blog.posts, :as => :post %>
+    <% @blog.posts.each do |post| %>
+      <tr>
+        <td>
+          <strong><%= post.title %></strong> 
+          <%= post.can_be_commented %> 
+          <%= post.comments_needs_approval %>
+        </td>
+        <td><%= link_to 'Edit', '#' %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <tr>
+        <td><%= post.body.html_safe %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
