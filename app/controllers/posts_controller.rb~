@@ -65,9 +65,8 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post.destroy
-    @blog = Blog.find(post_params[:blog_id])
     respond_to do |format|
-      format.html { redirect_to blog_path(@blog), notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
