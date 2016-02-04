@@ -19,12 +19,13 @@
 <%= link_to 'Edit', edit_blog_path(@blog) %> |
 <%= link_to 'Back', blogs_path %>
 
-<table class="table table-striped">
+<p>
+<table class="table table-bordered">
   <tbody>
     <% @blog.posts.each do |post| %>
       <tr>
-        <td>
-          <strong><%= post.title %></strong> 
+        <td bgcolor="#EFFBFB">
+          <strong><%= post.title %></strong>
           <%= post.can_be_commented %> 
           <%= post.comments_needs_approval %>
         </td>
@@ -32,8 +33,12 @@
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <tr>
-        <td><%= post.body.html_safe %></td>
+        <%= post.body.html_safe %>
+      </tr>
+      <tr bgcolor="#FAFAFA">
+        <td>Comments:</td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</p>
