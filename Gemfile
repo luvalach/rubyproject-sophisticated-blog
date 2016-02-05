@@ -58,3 +58,4 @@ gem 'rolify'
 gem 'rails_admin'
 gem "twitter-bootstrap-rails"
 gem 'tinymce-rails'
+gem 'will_paginate-bootstrap'

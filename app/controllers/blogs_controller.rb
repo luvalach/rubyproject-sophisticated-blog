@@ -8,7 +8,16 @@ class BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.json
   def index
-    @blogs = Blog.all
+    params.delete_if { |k, v| v.blank? } # empty search fields should be ignored
+    conditions = ['1=1'] # at least one condition must exists
+    
+    params[:search_publish] = true unless current_user and current_user.has_role? :admin and params[:search_publish] == 'on' 
+    
+    conditions << "name like :search_name" if params[:search_name] 
+    conditions << "description like :search_description" if params[:search_description]
+    conditions << "publish = :search_publish" if params[:search_publish]  
+    
+    @blogs = Blog.where(conditions.join(' AND '), params).paginate(:page => params[:page], :per_page => 5).order('name ASC')
     print current_user.has_role? :admin unless current_user.nil?
   end
 
