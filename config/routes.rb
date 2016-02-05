@@ -3,14 +3,19 @@ Rails.application.routes.draw do
   # admin part
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+  # blog of currently signed user
+  get 'myblog' => 'blogs#myblog'
+
+
   #blogs
-  get 'blogs/myblog' => 'blogs#myblog'
-  resources :blogs
+  resources :blogs do
+    # create blogs posts
+    resources :posts, only: [:new, :create]
+  end
   
 
   #posts
-  resources :posts
-  get 'blogs/:blog_id/new' => 'posts#new_post', :as => 'blogs_post'
+  resources :posts, only: [:edit, :update, :destroy]
 
   #comments
   resources :comments

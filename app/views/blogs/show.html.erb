@@ -15,7 +15,7 @@
   <%= @blog.description %>
 </p>
 
-<%= link_to 'New Post', blogs_post_path(@blog) %> |
+<%= link_to 'New Post', new_blog_post_path(@blog) %> |
 <%= link_to 'Edit', edit_blog_path(@blog) %> |
 <%= link_to 'Back', blogs_path %>
 
@@ -32,7 +32,7 @@
           <strong>Tags: </strong>
           <%= post.all_tags %>
         </td>
-        <td><%= link_to 'Edit', '#' %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <tr>

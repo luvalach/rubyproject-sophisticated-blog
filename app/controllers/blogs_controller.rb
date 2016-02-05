@@ -57,7 +57,7 @@ class BlogsController < ApplicationController
     end
   end
 
-  # GET /blogs/myblog
+  # GET /myblog
   def myblog
     if current_user
       if current_user.blog
