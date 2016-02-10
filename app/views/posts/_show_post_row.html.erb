@@ -1,18 +1,20 @@
-<tr>
-  <td bgcolor="#EFFBFB">
-    <strong><%= post.title %></strong>
-    <%= post.can_be_commented %>
-    <%= post.comments_needs_approval %>
-    <br>
-    <strong>Tags: </strong>
-    <%= post.all_tags %>
-  </td>
-  <td><%= link_to 'Edit', edit_post_path(post) %></td>
-  <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-</tr>
-<tr>
-  <td><%= post.body.html_safe %></td>
-</tr>
-<tr bgcolor="#FAFAFA">
-  <td>Comments:</td>
-</tr>
+<div class="media">
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= post.title %>
+      <br>
+      <small><%= post.all_tags %></small>
+    </h4>
+    <%= post.body.html_safe %>
+    <%= render :partial => "comments/form", :locals => { :comment => Comment.build_from(post, current_user.id, "") } %>
+    <%= render :partial => 'comments/comment', :collection => post.comments, :as => :comment %>
+  </div>
+  <div class="media-right">
+    <span>
+      <%= link_to 'Edit', edit_post_path(post) %>
+    </span>
+    <span>
+      <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </span>
+  </div>
+</div>

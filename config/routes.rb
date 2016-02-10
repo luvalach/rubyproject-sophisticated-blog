@@ -8,17 +8,14 @@ Rails.application.routes.draw do
 
 
   #blogs
-  resources :blogs do
-    # create blogs posts
-    resources :posts, only: [:new, :create]
+  resources :blogs, shallow: true do
+    # create blog posts
+    resources :posts, only: [:new, :create, :edit, :update, :destroy], shallow: true do
+    end
   end
-  
 
-  #posts
-  resources :posts, only: [:edit, :update, :destroy]
-
-  #comments
-  resources :comments
+  # create post comments
+  resources :comments, only: [:create, :destroy]
 
   devise_for :users
 

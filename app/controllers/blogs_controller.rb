@@ -24,7 +24,7 @@ class BlogsController < ApplicationController
   # GET /blogs/1
   # GET /blogs/1.json
   def show
-    @blog.posts.map { |p| puts p.title}
+    # @blog.posts.map { |p| p.new_comment = Comment.build_from(p, current_user.id, "") }
   end
 
   # GET /blogs/new
