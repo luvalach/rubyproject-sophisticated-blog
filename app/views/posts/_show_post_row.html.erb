@@ -1,0 +1,18 @@
+<tr>
+  <td bgcolor="#EFFBFB">
+    <strong><%= post.title %></strong>
+    <%= post.can_be_commented %>
+    <%= post.comments_needs_approval %>
+    <br>
+    <strong>Tags: </strong>
+    <%= post.all_tags %>
+  </td>
+  <td><%= link_to 'Edit', edit_post_path(post) %></td>
+  <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<tr>
+  <td><%= post.body.html_safe %></td>
+</tr>
+<tr bgcolor="#FAFAFA">
+  <td>Comments:</td>
+</tr>
