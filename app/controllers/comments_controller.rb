@@ -35,12 +35,12 @@ class CommentsController < ApplicationController
       #   format.json { render json: @comment.errors, status: :unprocessable_entity }
       # end
 
-      @comment_hash = params[:comment]
-      @obj = @comment_hash[:commentable_type].constantize.find(@comment_hash[:commentable_id])
+      comentable = comment_params[:commentable_type].constantize.find(comment_params[:commentable_id])
       # Not implemented: check to see whether the user has permission to create a comment on this object
-      @comment = Comment.build_from(@obj, current_user.id, @comment_hash[:body])
+      @comment = Comment.build_from(comentable, current_user.id, comment_params[:body])
       if @comment.save
-        render :partial => "comments/comment", :locals => { :comment => @comment }, :layout => false, :status => :created
+        make_child_comment
+        render :partial => "comments/comment", :locals => { :comments => [] << @comment }, :layout => false, :status => :created
       else
         render :js => "alert('error saving comment');"
       end
@@ -84,6 +84,13 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:user_id, :body, :approved, :commentable_id, :commentable_type)
+      params.require(:comment).permit(:user_id, :body, :approved, :commentable_id, :commentable_type, :comment_id)
+    end
+
+    def make_child_comment
+      return "" if comment_params[:comment_id].blank?
+
+      parent_comment = Comment.find comment_params[:comment_id]
+      @comment.move_to_child_of(parent_comment)
     end
 end

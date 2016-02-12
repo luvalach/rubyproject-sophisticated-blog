@@ -6,8 +6,15 @@
       <small><%= post.all_tags %></small>
     </h4>
     <%= post.body.html_safe %>
-    <%= render :partial => "comments/form", :locals => { :comment => Comment.build_from(post, current_user.id, "") } %>
-    <%= render :partial => 'comments/comment', :collection => post.comments, :as => :comment %>
+    <div class="comments-header">
+      <h4>
+        <%= post.comment_threads.count == 0 ? "no" : post.comment_threads.count %> comments
+      </h4>
+    </div>
+    <%= render :partial => "comments/form", :locals => { :comment => Comment.build_from(post, current_user.id, ""), :comment_id => nil } %>
+    <div class="comments-container">
+        <%= render :partial => 'comments/comment', :locals => { comments: post.root_comments } %>
+    </div>
   </div>
   <div class="media-right">
     <span>

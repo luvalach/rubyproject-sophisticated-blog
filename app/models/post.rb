@@ -1,9 +1,11 @@
 class Post < ActiveRecord::Base
+  acts_as_commentable
   belongs_to :user
   belongs_to :blog
-  has_many :comments, as: :commentable
-  has_many :likes, as: :likeable 
+  acts_as_commentable
+  has_many :likes, as: :likeable
   has_and_belongs_to_many :tags
+
 
 def all_tags=(names)
   self.tags = names.split(",").map do |name|

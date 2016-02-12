@@ -10,12 +10,11 @@ jQuery ->
 	        .addClass('uneditable-input')
 	        .attr('disabled', 'disabled');
 	    .on "ajax:success", (evt, data, status, xhr) ->
-	      console.log('ide to')
 	      $(this).find('textarea')
 	        .removeClass('uneditable-input')
 	        .removeAttr('disabled', 'disabled')
 	        .val('');
-	      $(xhr.responseText).hide().insertAfter($(this)).show('slow')
+	      $(xhr.responseText).hide().insertAfter($(this).next()).show('slow')
 
 	  # Delete a comment
       $(document)
@@ -25,3 +24,7 @@ jQuery ->
       	  $(this).hide('fast')
       	.on "ajax:error", ".comment", ->
       	  $(this).fadeTo('fast', 1)
+
+      $(document)
+		    .on "click", ".show-reply-button", ->
+          $(this).siblings(".comment-reply").show()

@@ -60,3 +60,4 @@ gem "twitter-bootstrap-rails"
 gem 'tinymce-rails'
 gem 'will_paginate-bootstrap'
 gem 'acts_as_commentable_with_threading'
+gem 'jquery-turbolinks'

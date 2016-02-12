@@ -58,3 +58,21 @@ hr.custom-hr {
     margin-bottom: 15px;
     padding: 7px 9px;
 }
+
+.comments-header {
+    border-bottom: 1px dotted gray;
+    margin-bottom: 10px;
+}
+
+.comment-show {
+    margin-left: 25px;
+}
+
+.comment-reply {
+    display: none;
+}
+
+.show-reply-button {
+    float: right;
+    margin-right: 5px;
+}
