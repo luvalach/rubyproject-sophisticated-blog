@@ -3,28 +3,42 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-	  # Create a comment
-	  $(".comment-form")
-	    .on "ajax:beforeSend", (evt, xhr, settings) ->
-	      $(this).find('textarea')
-	        .addClass('uneditable-input')
-	        .attr('disabled', 'disabled');
-	    .on "ajax:success", (evt, data, status, xhr) ->
-	      $(this).find('textarea')
-	        .removeClass('uneditable-input')
-	        .removeAttr('disabled', 'disabled')
-	        .val('');
-	      $(xhr.responseText).hide().insertAfter($(this).next()).show('slow')
+  $(".comment-form, .reply-form")
+  .on "ajax:beforeSend", (evt, xhr, settings) ->
+    $(this).find('textarea')
+    .addClass('uneditable-input')
+    .attr('disabled', 'disabled');
 
-	  # Delete a comment
-      $(document)
-        .on "ajax:beforeSend", ".comment", ->
-      	  $(this).fadeTo('fast', 0.5)
-      	.on "ajax:success", ".comment", ->
-      	  $(this).hide('fast')
-      	.on "ajax:error", ".comment", ->
-      	  $(this).fadeTo('fast', 1)
+  $(".comment-form")
+  .on "ajax:success", (evt, data, status, xhr) ->
+    $(this).find('textarea')
+    .removeClass('uneditable-input')
+    .removeAttr('disabled', 'disabled')
+    .val('');
+    $(xhr.responseText).hide().insertAfter($(this).next()).show('slow');
 
-      $(document)
-		    .on "click", ".show-reply-button", ->
-          $(this).siblings(".comment-reply").show()
+  $(document)
+  .on "click", ".show-reply-button", ->
+    $(this).siblings(".reply-form").toggle();
+
+  # handle reply form
+  .on "ajax:success", ".reply-form", (evt, data, status, xhr) ->
+    $(this).find('textarea')
+    .removeClass('uneditable-input')
+    .removeAttr('disabled', 'disabled')
+    .val('');
+    elem = $(this).closest(".comment-show");
+    elem.hide();
+    elem.append($(xhr.responseText));
+    elem.show("slow");
+    $(this).hide();
+
+  # handle delete comment
+  .on "ajax:beforeSend", ".remove-comment-button", ->
+    $(this).closest(".comment-show").fadeTo('fast', 0.5);
+  .on "ajax:success", ".remove-comment-button", ->
+    $(this).closest(".comment-show").hide('fast');
+  .on "ajax:error", ".remove-comment-button", ->
+    $(this).closest(".comment-show").fadeTo('fast', 1);
+
+
