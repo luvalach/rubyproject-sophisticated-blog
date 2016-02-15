@@ -3,5 +3,4 @@
  *= require_self
  *= require darkly/loader
  *= require darkly/bootswatch
- *= require fontawesome
 */

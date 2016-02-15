@@ -4,27 +4,27 @@
 </div>
 
 <div class="row">
-<button type="button" class="btn btn-default col-md-1" onclick="$('#search_form').toggleClass('hidden');">
-  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>Filter blogs
+<button type="button" class="btn btn-default col-md-2" onclick="$('#search_form').toggleClass('hidden');">
+  <%= fa_icon "search", text: "Filter blogs" %>
 </button>
 
-<%= form_tag request.path, :method => 'get', :class => "form-inline hidden", :id => 'search_form' do %>
-    <div class="form-group col-md-3">
+<%= form_tag request.path, :method => 'get', :class => "form-inline hidden  col-md-10", :id => 'search_form' do %>
+    <div class="form-group">
       <%= label :search_name, "Name:" %>
-      <%= text_field_tag :search_name, params[:search_name], placeholder: "blog name..." %>
+      <%= text_field_tag :search_name, @params[:search_name], placeholder: "blog name..." %>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group">
       <%= label :search_description, "Description:" %>
-      <%= text_field_tag :search_description, params[:search_description], placeholder: "search accepts % as wildcard" %>
+      <%= text_field_tag :search_description, @params[:search_description], placeholder: "search accepts % as wildcard" %>
     </div>
     <% if current_user and current_user.has_role? :admin %>
-      <div class="form-group col-md-3">
-        <%= label :search_publish, "Only published blogs:" %>
-        <%= check_box_tag :search_publish, params[:search_publish] %>
+      <div class="form-group">
+        <%= label :search_publish, "Show unpublished blogs:" %>
+        <%= check_box_tag :search_publish, @params[:search_publish] %>
       </div>
     <% end %>
 
-    <%= submit_tag "Search", name: nil, class: "btn btn-default col-md-1" %>
+    <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
 <% end %>
 </div>
 
@@ -51,14 +51,18 @@
         <td class="blog-description"><%= blog.description %></td>
         <td class="blog-author"><%= blog.user.username %></td>
         <% if current_user and current_user.has_role? :admin %>
-          <td class="blog-publish"><%= blog.publish %></td>
-          <td class="blog-commentable"><%= blog.commentable %></td>
-          <td class="blog-comment_needs_approval"><%= blog.comment_needs_approval %></td>
+          <td class="blog-publish"><i class='<%= blog.publish ? 'fa fa-check' : 'fa fa-close' %>'/></td>
+          <td class="blog-commentable"><i class='<%= blog.commentable ? 'fa fa-check' : 'fa fa-close' %>'/></td>
+          <td class="blog-comment_needs_approval"><i class='<%= blog.comment_needs_approval ? 'fa fa-check' : 'fa fa-close' %>'/></td>
           <td>
-              <%= link_to 'Edit', edit_blog_path(blog) %>
+              <%= link_to edit_blog_path(blog) do %>
+                <%= fa_icon "pencil", text: "Edit" %>
+              <% end %>
           </td>
-          <td>    
- 	      <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <td>
+              <%= link_to blog, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <%= fa_icon "trash-o", text: "Destroy" %>
+              <% end %>
           </td>              
         <% end %>
       </tr>

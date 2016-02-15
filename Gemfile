@@ -59,6 +59,7 @@ gem 'rails_admin'
 gem 'therubyracer'
 gem "less-rails"
 gem "twitter-bootstrap-rails"
+gem 'twitter-bootswatch-rails-fontawesome'
 gem 'twitter-bootswatch-rails-helpers'
 gem 'tinymce-rails'
 gem 'will_paginate-bootstrap'

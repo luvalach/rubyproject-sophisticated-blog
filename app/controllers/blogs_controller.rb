@@ -1,7 +1,6 @@
 class BlogsController < ApplicationController
   # before_action :authenticate_user!
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
-  before_action :set_blog_theme, only: [:show, :edit, :update, :destroy, :myblog, :editmyblog]
   before_action :set_default_theme, only: [:index]
 
   load_and_authorize_resource
@@ -10,13 +9,17 @@ class BlogsController < ApplicationController
   # GET /blogs.json
   def index
     params.delete_if { |k, v| v.blank? } # empty search fields should be ignored
+
+    @params = params
+    
+    unless current_user and current_user.has_role? :admin and params[:search_publish] == 'on' 
+      params[:search_only_published] = true 
+    end
+    
     conditions = ['1=1'] # at least one condition must exists
-    
-    params[:search_publish] = true unless current_user and current_user.has_role? :admin and params[:search_publish] == 'on' 
-    
     conditions << "name like :search_name" if params[:search_name] 
     conditions << "description like :search_description" if params[:search_description]
-    conditions << "publish = :search_publish" if params[:search_publish]  
+    conditions << "publish = :search_only_published" if params[:search_only_published]  
     
     @blogs = Blog.where(conditions.join(' AND '), params).paginate(:page => params[:page], :per_page => 5).order('name ASC')
     print current_user.has_role? :admin unless current_user.nil?
@@ -113,10 +116,6 @@ class BlogsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
       params.require(:blog).permit(:name, :description, :publish, :commentable, :comment_needs_approval, :theme)
-    end
-
-    def set_blog_theme
-      
     end
 
     def set_default_theme

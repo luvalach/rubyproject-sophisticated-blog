@@ -57,6 +57,7 @@ gem 'cancancan'
 gem 'rolify'
 gem 'rails_admin'
 gem 'therubyracer'
+gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem 'twitter-bootswatch-rails-helpers'
 gem 'tinymce-rails'
