@@ -19,8 +19,8 @@
     </div>
     <% if current_user and current_user.has_role? :admin %>
       <div class="form-group">
-        <%= label :search_publish, "Show unpublished blogs:" %>
-        <%= check_box_tag :search_publish, @params[:search_publish] %>
+        <%= label :search_show_unpublish, "Show unpublished blogs:" %>
+        <%= check_box_tag 'search_show_unpublish', @params[:search_show_unpublish], 'yeah', false %>
       </div>
     <% end %>
 

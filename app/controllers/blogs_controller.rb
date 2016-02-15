@@ -10,9 +10,9 @@ class BlogsController < ApplicationController
   def index
     params.delete_if { |k, v| v.blank? } # empty search fields should be ignored
 
-    @params = params
+    @params = params # propagate settings back to view
     
-    unless current_user and current_user.has_role? :admin and params[:search_publish] == 'on' 
+    unless current_user and current_user.has_role? :admin and params[:search_show_unpublish] == 'on' 
       params[:search_only_published] = true 
     end
     

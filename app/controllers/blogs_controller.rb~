@@ -11,8 +11,9 @@ class BlogsController < ApplicationController
     params.delete_if { |k, v| v.blank? } # empty search fields should be ignored
 
     @params = params
+    #params[:search_show_unpublish] = 1
     
-    unless current_user and current_user.has_role? :admin and params[:search_publish] == 'on' 
+    unless current_user and current_user.has_role? :admin and params[:search_show_unpublish] == 'on' 
       params[:search_only_published] = true 
     end
     
@@ -23,7 +24,6 @@ class BlogsController < ApplicationController
     
     @blogs = Blog.where(conditions.join(' AND '), params).paginate(:page => params[:page], :per_page => 5).order('name ASC')
     print current_user.has_role? :admin unless current_user.nil?
-    render 
   end
 
   # GET /blogs/1
