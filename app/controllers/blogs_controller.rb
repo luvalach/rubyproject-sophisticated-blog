@@ -4,6 +4,8 @@ class BlogsController < ApplicationController
 
   load_and_authorize_resource
 
+  layout :get_layout
+
 
   # GET /blogs
   # GET /blogs.json
@@ -111,5 +113,9 @@ class BlogsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
       params.require(:blog).permit(:name, :description, :publish, :commentable, :comment_needs_approval)
+    end
+
+    def get_layout
+      'slate'
     end
 end
