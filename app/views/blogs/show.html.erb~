@@ -1,47 +1,17 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <h1><%= @blog.name %></h1>
+  <p class="lead"><%= @blog.description %></p>
+  <p id="notice"><%= notice %></p>
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-default"><%= link_to 'New Post', new_blog_post_path(@blog) %></button>
+    <button type="button" class="btn btn-default"><%= link_to 'Edit', edit_blog_path(@blog) %></button>
+    <button type="button" class="btn btn-default"><%= link_to 'Back', blogs_path %></button>
+  </div>
+  <div class="blog-posts">
+    <%= render :partial => "posts/show_post_row", :collection => @blog.posts, :as => :post %>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @blog.name %>
-</p>
 
-<p>
-  <strong>User:</strong>
-  <%= @blog.user.username %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @blog.description %>
-</p>
 
-<%= link_to 'New Post', blogs_post_path(@blog) %> |
-<%= link_to 'Edit', edit_blog_path(@blog) %> |
-<%= link_to 'Back', blogs_path %>
-
-<p>
-<table class="table table-bordered">
-  <tbody>
-    <% @blog.posts.each do |post| %>
-      <tr>
-        <td bgcolor="#EFFBFB">
-          <strong><%= post.title %></strong>
-          <%= post.can_be_commented %> 
-          <%= post.comments_needs_approval %>
-          <br>
-          <strong>Tags: </strong>
-          <%= post.all_tags %>
-        </td>
-        <td><%= link_to 'Edit', '#' %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-      <tr>
-        <td><%= post.body.html_safe %></td>
-      </tr>
-      <tr bgcolor="#FAFAFA">
-        <td>Comments:</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-</p>

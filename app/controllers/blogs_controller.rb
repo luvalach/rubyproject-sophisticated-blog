@@ -79,6 +79,19 @@ class BlogsController < ApplicationController
     end
   end
 
+  # GET /myblogsettings
+  def editmyblog
+    if current_user
+      if current_user.blog
+        redirect_to edit_blog_path(current_user.blog.id)
+      else 
+        redirect_to new_blog_path
+      end
+    else
+      raise CanCan::AccessDenied.new("Not authorized!", :create, Blog)
+    end
+  end
+
   # DELETE /blogs/1
   # DELETE /blogs/1.json
   def destroy

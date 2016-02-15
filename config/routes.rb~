@@ -3,17 +3,23 @@ Rails.application.routes.draw do
   # admin part
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+  # blog of currently signed user
+  get 'myblog' => 'blogs#myblog
+
+  # edit settings of blog of currently signed user
+  get 'myblogsettings' => 'blogs#editmyblog
+'
+
+
   #blogs
-  get 'blogs/myblog' => 'blogs#myblog'
-  resources :blogs
-  
+  resources :blogs, shallow: true do
+    # create blog posts
+    resources :posts, only: [:new, :create, :edit, :update, :destroy], shallow: true do
+    end
+  end
 
-  #posts
-  resources :posts
-  get 'blogs/:blog_id/new' => 'posts#new_post', :as => 'blogs_post'
-
-  #comments
-  resources :comments
+  # create post comments
+  resources :comments, only: [:create, :destroy]
 
   devise_for :users
 

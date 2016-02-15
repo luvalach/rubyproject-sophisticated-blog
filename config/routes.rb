@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   # blog of currently signed user
   get 'myblog' => 'blogs#myblog'
 
+  # edit settings of blog of currently signed user
+  get 'myblogsettings' => 'blogs#editmyblog'
+
 
   #blogs
   resources :blogs, shallow: true do
