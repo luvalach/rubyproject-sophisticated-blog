@@ -1,11 +1,10 @@
 class BlogsController < ApplicationController
   # before_action :authenticate_user!
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
+  before_action :set_blog_theme, only: [:show, :edit, :update, :destroy, :myblog, :editmyblog]
+  before_action :set_default_theme, only: [:index]
 
   load_and_authorize_resource
-
-  layout :get_layout
-
 
   # GET /blogs
   # GET /blogs.json
@@ -112,10 +111,14 @@ class BlogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:name, :description, :publish, :commentable, :comment_needs_approval)
+      params.require(:blog).permit(:name, :description, :publish, :commentable, :comment_needs_approval, :theme)
     end
 
-    def get_layout
-      'Slate'
+    def set_blog_theme
+      session[:theme] = 'cyborg'
+    end
+
+    def set_default_theme
+      session[:theme] = 'slate'
     end
 end

@@ -3,11 +3,12 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 
-<button type="button" class="btn btn-default" onclick="$('#search_form').toggleClass('hidden');">
+<div class="row">
+<button type="button" class="btn btn-default col-md-2" onclick="$('#search_form').toggleClass('hidden');">
   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>Filter blogs
 </button>
 
-<%= form_tag request.path, :method => 'get', :class => "form-inline hidden", :id => 'search_form' do %>
+<%= form_tag request.path, :method => 'get', :class => "form-inline hidden  col-md-10", :id => 'search_form' do %>
     <div class="form-group">
       <%= label :search_name, "Name:" %>
       <%= text_field_tag :search_name, params[:search_name], placeholder: "blog name..." %>
@@ -25,7 +26,9 @@
 
     <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
 <% end %>
+</div>
 
+<div class="row">
 <table class="table table-striped">
   <thead>
   <tr>
@@ -62,5 +65,9 @@
   <% end %>
   </tbody>
 </table>
+</div>
 
+<div class="row">
 <%= will_paginate @blogs, renderer: BootstrapPagination::Rails %>
+</div>
+

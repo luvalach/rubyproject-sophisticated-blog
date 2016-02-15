@@ -12,3 +12,20 @@ Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.precompile += %w( slate.css )
 Rails.application.config.assets.precompile += %w( slate.js )
+
+Rails.application.config.assets.precompile += %w( cyborg.css )
+Rails.application.config.assets.precompile += %w( cyborg.js )
+
+Rails.application.config.assets.precompile += %w( united.css )
+Rails.application.config.assets.precompile += %w( united.js )
+
+Rails.application.config.assets.precompile += %w( superhero.css )
+Rails.application.config.assets.precompile += %w( superhero.js )
+
+
+Rails.application.config.assets.precompile += %w( cerulean.css )
+Rails.application.config.assets.precompile += %w( cerulean.js )
+
+Rails.application.config.assets.precompile += %w( darkly.css )
+Rails.application.config.assets.precompile += %w( darkly.js )
+

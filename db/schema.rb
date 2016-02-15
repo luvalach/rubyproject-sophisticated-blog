@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210174706) do
+ActiveRecord::Schema.define(version: 20160215113132) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "description"
     t.boolean  "publish"
     t.boolean  "commentable"
     t.boolean  "comment_needs_approval"
+    t.string   "theme",                  default: "slate"
   end
 
   add_index "blogs", ["publish"], name: "index_blogs_on_publish"

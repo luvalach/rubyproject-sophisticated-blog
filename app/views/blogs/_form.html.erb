@@ -30,6 +30,14 @@
     </div>
 
     <div class="control-group">
+      <%= f.label :theme do %>
+        Blog theme 
+        <%= f.select(:theme, options_for_select(['slate', 'cyborg', 'united', 'superhero', 'cerulean',  'darkly'], @blog[:theme]), :class => 'form-control') %>
+      <% end %>
+      <%= error_span(@blog[:theme]) %>
+    </div>
+
+    <div class="control-group">
       <%= f.label :publish do %>
         <%= f.check_box :publish %>
         Publish my blog

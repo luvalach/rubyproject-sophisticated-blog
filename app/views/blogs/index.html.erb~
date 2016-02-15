@@ -3,29 +3,32 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 
-<button type="button" class="btn btn-default" onclick="$('#search_form').toggleClass('hidden');">
- 
+<div class="row">
+<button type="button" class="btn btn-default col-md-1" onclick="$('#search_form').toggleClass('hidden');">
+  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>Filter blogs
 </button>
 
 <%= form_tag request.path, :method => 'get', :class => "form-inline hidden", :id => 'search_form' do %>
-    <div class="form-group">
+    <div class="form-group col-md-3">
       <%= label :search_name, "Name:" %>
       <%= text_field_tag :search_name, params[:search_name], placeholder: "blog name..." %>
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
       <%= label :search_description, "Description:" %>
       <%= text_field_tag :search_description, params[:search_description], placeholder: "search accepts % as wildcard" %>
     </div>
     <% if current_user and current_user.has_role? :admin %>
-      <div class="form-group">
+      <div class="form-group col-md-3">
         <%= label :search_publish, "Only published blogs:" %>
         <%= check_box_tag :search_publish, params[:search_publish] %>
       </div>
     <% end %>
 
-    <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+    <%= submit_tag "Search", name: nil, class: "btn btn-default col-md-1" %>
 <% end %>
+</div>
 
+<div class="row">
 <table class="table table-striped">
   <thead>
   <tr>
@@ -62,5 +65,9 @@
   <% end %>
   </tbody>
 </table>
+</div>
 
+<div class="row">
 <%= will_paginate @blogs, renderer: BootstrapPagination::Rails %>
+</div>
+
