@@ -4,3 +4,4 @@
 //= require jquery_ujs
 //= require cerulean/loader
 //= require cerulean/bootswatch
+//= require common

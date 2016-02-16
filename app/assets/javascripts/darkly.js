@@ -4,3 +4,4 @@
 //= require jquery_ujs
 //= require darkly/loader
 //= require darkly/bootswatch
+//= require common

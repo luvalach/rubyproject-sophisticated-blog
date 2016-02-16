@@ -3,4 +3,5 @@
  *= require_self
  *= require superhero/loader
  *= require superhero/bootswatch
+ *= require fontawesome
 */

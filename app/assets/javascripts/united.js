@@ -4,3 +4,4 @@
 //= require jquery_ujs
 //= require united/loader
 //= require united/bootswatch
+//= require common
