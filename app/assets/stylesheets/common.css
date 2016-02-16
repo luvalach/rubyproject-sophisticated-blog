@@ -1,0 +1,17 @@
+/*
+ *= require_self
+ *= require fontawesome
+*/
+
+.comments-header {
+    border-bottom: 1px dotted gray;
+    margin-bottom: 10px;
+}
+
+.comment-show {
+    margin-left: 25px;
+}
+
+.reply-form {
+    display: none;
+}

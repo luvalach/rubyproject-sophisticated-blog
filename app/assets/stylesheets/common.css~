@@ -1,0 +1,62 @@
+/*
+ *= require_self
+ *= require fontawesome
+*/
+
+.filter-by-tag {
+    margin: 0px 5px;
+    border: 1px solid #999999;
+    padding: 5px;
+    border-radius: 25px;
+}
+
+hr.custom-hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, transparent, rgba(0,0,0,0.75), transparent);
+}
+
+.navbar { min-height: 38px; font-size: 18px; color: #fff;}
+
+.navbar-right {
+    margin-right: 15px;
+}
+
+.border-form-div {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.border-form-div .form-signin-heading,
+.border-form-div .checkbox {
+    margin-bottom: 10px;
+}
+.border-form-div input[type="text"],
+.border-form-div input[type="email"],
+.border-form-div input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+
+.comments-header {
+    border-bottom: 1px dotted gray;
+    margin-bottom: 10px;
+}
+
+.comment-show {
+    margin-left: 25px;
+}
+
+.reply-form {
+    display: none;
+}
