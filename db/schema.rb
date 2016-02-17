@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217180459) do
+ActiveRecord::Schema.define(version: 20160217203523) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "name"
@@ -34,12 +34,13 @@ ActiveRecord::Schema.define(version: 20160217180459) do
     t.string   "title"
     t.text     "body"
     t.string   "subject"
-    t.integer  "user_id",          null: false
+    t.integer  "user_id",                          null: false
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "approved",         default: false
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"

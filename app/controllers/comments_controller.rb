@@ -4,11 +4,12 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-
       comentable = comment_params[:commentable_type].constantize.find(comment_params[:commentable_id])
       # Not implemented: check to see whether the user has permission to create a comment on this object
       @comment = Comment.build_from(comentable, current_user.id, comment_params[:body])
       if @comment.save
+        @blog = Blog.find(Post.find(@comment.commentable_id).blog_id)
+        @comment.update_attribute(:approved, true) if (@blog.user_id.equal? @comment.user_id) || (not @blog.comment_needs_approval)
         make_child_comment
         render :partial => "comments/comment", :locals => { :comments => [] << @comment }, :layout => false, :status => :created
       else

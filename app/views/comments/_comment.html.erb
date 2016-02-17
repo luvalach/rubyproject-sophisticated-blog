@@ -1,4 +1,5 @@
 <% comments.each do |comment| %>
+<% if comment.approved || (@blog.user_id.equal? current_user.id) || (comment.user_id.equal? current_user.id) %>
 <div class="comment-show" id="comment-<%= comment.id %>" >
   <div class="comment">
     <% if can? :destroy, @comment %>
@@ -10,9 +11,15 @@
     <h4>
       <%= comment.user.username %>
       <small><%= comment.updated_at %></small>
-      <%= link_to "Like", like_comment_path(comment), method: :put %> | 
-      <%= link_to "Dislike", dislike_comment_path(comment), method: :put %> | 
-      <%= comment.score %>
+      <% if comment.approved %>
+        <%= link_to "Like", like_comment_path(comment), method: :put %> | 
+        <%= link_to "Dislike", dislike_comment_path(comment), method: :put %> | 
+        <%= comment.score %>
+      <% end %>
+      <% unless comment.approved %> Waiting for approval <% end %>
+      <% if @blog.user_id.equal? current_user.id %>
+        <%= link_to "Approve" unless comment.approved %>
+      <% end %>
     </h4>
     <p><%= comment.body %></p>
     <% unless current_user.nil? %>
@@ -23,4 +30,5 @@
   </div>
   <%= render partial: "comments/comment", locals: {comments: comment.children} %>
 </div>
+<% end %>
 <% end %>

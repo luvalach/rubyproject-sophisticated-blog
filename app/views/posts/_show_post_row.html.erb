@@ -13,7 +13,8 @@
     <% if @blog.commentable %>
       <div class="comments-header">
         <h4>
-          <%= post.comment_threads.count == 0 ? "no" : post.comment_threads.count %> comments
+          <%= post.comment_threads.count == 0 ? "no" : post.comment_threads.count %> comments 
+          <% if @blog.comment_needs_approval %>(May be visible after approval)<% end %>
         </h4>
       </div>
       <% unless current_user.nil? %>
