@@ -8,9 +8,9 @@ class Post < ActiveRecord::Base
 
 
 def all_tags=(names)
-  self.tags = names.split(",").map do |name|
-      Tag.where(name: name.strip).first_or_create!
-  end
+    tag_names = names.split(/[\s,]+/).collect { |s| s.strip.downcase }.uniq
+    n_or_f_tags = tag_names.collect { |name| Tag.find_or_create_by(name: name) }
+    self.tags = n_or_f_tags
 end
 
 def all_tags
