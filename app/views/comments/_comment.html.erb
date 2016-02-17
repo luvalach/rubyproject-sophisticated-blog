@@ -1,5 +1,5 @@
 <% comments.each do |comment| %>
-<% if comment.approved || (@blog.user_id.equal? current_user.id) || (comment.user_id.equal? current_user.id) %>
+<% if current_user && (comment.approved || (@blog.user_id.equal? current_user.id) || (comment.user_id.equal? current_user.id)) %>
 <div class="comment-show" id="comment-<%= comment.id %>" >
   <div class="comment">
     <% if can? :destroy, @comment %>
@@ -17,7 +17,7 @@
         <%= comment.score %>
       <% end %>
       <% unless comment.approved %> Waiting for approval. <% end %>
-      <% if @blog.user_id.equal? current_user.id %>
+      <% if current_user && (@blog.user_id.equal? current_user.id) %>
         <%= link_to "Approve", approve_comment_path(comment), method: :put unless comment.approved %>
       <% end %>
     </h4>
