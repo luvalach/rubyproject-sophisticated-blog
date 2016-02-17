@@ -44,7 +44,7 @@ class Ability
             can :create_post_for, Blog, :id => user.blog.id
             can [:update, :destroy], Post, :blog_id => user.blog.id
           end
-          can [:create, :upvote, :downvote, :approve], Comment
+          can [:upvote, :downvote, :approve], Comment
           can :destroy, Comment, :user_id => user.id
 	  can [:update, :destroy], Like, :user_id => user.id
         end
