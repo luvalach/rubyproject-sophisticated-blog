@@ -1,11 +1,12 @@
-<div class="container">
+<div class="page-header">
   <h1><%= @blog.name %></h1>
-  <p class="lead">Description:<%= @blog.description %></p>
-  <p id="notice"><%= notice %></p>
-  <% if @blogposts.empty? %>
-    This user has no posts.
-  <% end %>
-  <div class="blog-posts">
-    <%= render :partial => "posts/show_post_row", :collection => @blogposts, :as => :post %>
-  </div>
+  <p class="lead"><%= @blog.description %></p>
+</div>
+
+<p id="notice"><%= notice %></p>
+<% if @blogposts.empty? %>
+   <p class="lead">This user has no posts.</p>
+<% end %>
+<div class="blog-posts">
+  <%= render :partial => "posts/show_post_row", :collection => @blogposts, :as => :post %>
 </div>
