@@ -1,16 +1,22 @@
 <% comments.each do |comment| %>
 <div class="comment-show" id="comment-<%= comment.id %>" >
   <div class="comment">
-    <%= link_to "×", comment_path(comment), :method => :delete, :remote => true, :confirm => "Are you sure you want to remove this comment?", :disable_with => "×", :class => 'close remove-comment-button' %>
-    <%= link_to "Reply","#", class: "show-reply-button" %>
+    <% if can? :destroy, @comment %>
+      <%= link_to "×", comment_path(comment), :method => :delete, :remote => true, :confirm => "Are you sure you want to remove this comment?", :disable_with => "×", :class => 'close remove-comment-button' %>
+    <% end %>
+    <% if can? :create, Comment %>
+      <%= link_to "Reply","#", class: "show-reply-button" %>
+    <% end %>
     <h4>
       <%= comment.user.username %>
       <small><%= comment.updated_at %></small>
     </h4>
     <p><%= comment.body %></p>
+    <% unless current_user.nil? %>
     <div class="reply-form">
       <%= render :partial => "comments/form", :locals => { :comment => Comment.build_from(comment.commentable, current_user.id, ""), :comment_id => comment.id } %>
     </div>
+    <% end %>
   </div>
   <%= render partial: "comments/comment", locals: {comments: comment.children} %>
 </div>

@@ -5,10 +5,9 @@ class ApplicationController < ActionController::Base
 
   include CanCan::ControllerAdditions
 
-  # find out what's difference between this code and controller additions
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   redirect_to root_url, :alert => exception.message
-  # end
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 

@@ -1,3 +1,6 @@
+require 'pp'
+
+
 class Ability
   include CanCan::Ability
 
@@ -38,7 +41,8 @@ class Ability
           can [:create], Blog
           can [:update, :destroy, :new_post_on_my_blog, :editmyblog, :myblog], Blog, :user_id => user.id
           user.blog ||= Blog.new
-          can [:create, :update, :destroy], Post, :blog_id => user.blog.id
+          can :create_post_for, Blog, :id => user.blog.id
+          can [:update, :destroy], Post, :blog_id => user.blog.id
           can :create, Comment
           can :destroy, Comment, :user_id => user.id
 	  can [:update, :destroy], Like, :user_id => user.id

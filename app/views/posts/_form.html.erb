@@ -31,6 +31,8 @@
     <%= f.label :comments_needs_approval %><br>
     <%= f.check_box :comments_needs_approval %>
   </div>
+    <%= f.hidden_field :blog_id  %>
+    <%= f.hidden_field :user_id  %>
   <div class="actions">
     <%= f.submit %>
   </div>
