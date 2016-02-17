@@ -3,6 +3,15 @@
  *= require fontawesome
 */
 
+.media-body, .media-right {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.media-body {
+    width: 10000px;
+}
+
 .comments-header {
     border-bottom: 1px dotted gray;
     margin-bottom: 10px;

@@ -1,9 +1,8 @@
 class BlogsController < ApplicationController
-  # before_action :authenticate_user!
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
   before_action :set_default_theme, only: [:index]
 
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:myblog, :editmyblog]
 
   # GET /blogs
   # GET /blogs.json

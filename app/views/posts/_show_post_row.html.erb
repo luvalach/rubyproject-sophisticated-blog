@@ -11,19 +11,25 @@
         <%= post.comment_threads.count == 0 ? "no" : post.comment_threads.count %> comments
       </h4>
     </div>
+    <% unless current_user.nil? %>
     <div class="comment-form">
       <%= render :partial => "comments/form", :locals => { :comment => Comment.build_from(post, current_user.id, ""), :comment_id => nil } %>
     </div>
+    <% end %>
     <div class="comments-container">
         <%= render :partial => 'comments/comment', :locals => { comments: post.root_comments } %>
     </div>
   </div>
   <div class="media-right">
+    <% if can? :update, post %>
     <span>
       <%= link_to 'Edit', edit_post_path(post) %>
     </span>
-    <span>
-      <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
-    </span>
+    <% end %>
+    <% if can? :destoy, post %>
+      <span>
+        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </span>
+    <% end %>
   </div>
 </div>
