@@ -10,8 +10,9 @@
     <h4>
       <%= comment.user.username %>
       <small><%= comment.updated_at %></small>
-      <%= link_to "Like","#" %> | 
-      <%= link_to "Disike","#" %>
+      <%= link_to "Like", like_comment_path(comment), method: :put %> | 
+      <%= link_to "Dislike", dislike_comment_path(comment), method: :put %> | 
+      <%= comment.score %>
     </h4>
     <p><%= comment.body %></p>
     <% unless current_user.nil? %>

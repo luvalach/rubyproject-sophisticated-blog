@@ -24,7 +24,12 @@ Rails.application.routes.draw do
   end
 
   # create post comments
-  resources :comments, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy] do
+    member do
+    put "like", to: "comments#upvote"
+    put "dislike", to: "comments#downvote"
+    end
+  end
 
   devise_for :users
 

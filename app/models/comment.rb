@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
+  acts_as_votable
 
   validates :body, :presence => true
   validates :user, :presence => true
@@ -47,5 +48,9 @@ class Comment < ActiveRecord::Base
   # given the commentable class name and id
   def self.find_commentable(commentable_str, commentable_id)
     commentable_str.constantize.find(commentable_id)
+  end
+
+  def score
+    self.get_upvotes.size - self.get_downvotes.size
   end
 end
