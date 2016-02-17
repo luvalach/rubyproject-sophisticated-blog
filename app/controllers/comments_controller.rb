@@ -40,6 +40,12 @@ class CommentsController < ApplicationController
     redirect_to(:back)
   end
 
+  def approve
+    @comment = Comment.find(params[:id])
+    @comment.update_attribute(:approved, true)
+    redirect_to(:back)
+  end
+
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.

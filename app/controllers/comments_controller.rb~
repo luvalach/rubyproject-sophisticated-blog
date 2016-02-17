@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
       @comment = Comment.build_from(comentable, current_user.id, comment_params[:body])
       if @comment.save
         @blog = Blog.find(Post.find(@comment.commentable_id).blog_id)
-        @comment.update_attribute(:approved, true) unless @blog.comment_needs_approval
+        @comment.update_attribute(:approved, true) if (@blog.user_id.equal? @comment.user_id) || (not @blog.comment_needs_approval)
         make_child_comment
         render :partial => "comments/comment", :locals => { :comments => [] << @comment }, :layout => false, :status => :created
       else

@@ -26,8 +26,8 @@ Rails.application.routes.draw do
   # create post comments
   resources :comments, only: [:create, :destroy] do
     member do
-    put "like", to: "comments#upvote"
-    put "dislike", to: "comments#downvote"
+      put "like", to: "comments#upvote"
+      put "dislike", to: "comments#downvote"
     end
   end
 
