@@ -30,7 +30,8 @@ class BlogsController < ApplicationController
     # @blog.posts.map { |p| p.new_comment = Comment.build_from(p, current_user.id, "") }
     if params[:tag_name]
       @blogposts =
-        (Tag.find_by name: params[:tag_name]).posts.order('updated_at DESC')
+        (Tag.find_by name: params[:tag_name]).posts.where(blog_id: @blog.id)
+      @blogposts = @blogposts.order('updated_at DESC')
     else
       @blogposts = @blog.posts.order('updated_at DESC')
     end
