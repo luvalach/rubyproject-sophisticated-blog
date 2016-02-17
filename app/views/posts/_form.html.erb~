@@ -1,5 +1,5 @@
 <%= tinymce_assets %>
-<%= form_for(@post) do |f| %>
+<%= form_for(@post, :url => @post.id.nil? ? blog_posts_path : post_path) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -11,13 +11,12 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-      <%= f.label "Tags:" %><br>
+      <%= f.label "Tags(separated by comma):" %><br>
       <%= f.text_field :all_tags %>
   </div>
   <div class="field">
@@ -32,9 +31,10 @@
     <%= f.label :comments_needs_approval %><br>
     <%= f.check_box :comments_needs_approval %>
   </div>
+    <%= f.hidden_field :blog_id  %>
+    <%= f.hidden_field :user_id  %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
   </div>
-  <%= f.hidden_field :blog_id, :value => @blog.id %>
 <% end %>
 <%= tinymce %>
