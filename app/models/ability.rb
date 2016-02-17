@@ -40,9 +40,11 @@ class Ability
           # user shouldn't have access to create user or 2nd blog
           can [:create], Blog
           can [:update, :destroy, :new_post_on_my_blog, :editmyblog, :myblog], Blog, :user_id => user.id
-          user.blog ||= Blog.new
-          can :create_post_for, Blog, :id => user.blog.id
-          can [:update, :destroy], Post, :blog_id => user.blog.id
+          # user.blog ||= Blog.new
+          if user.blog
+            can :create_post_for, Blog, :id => user.blog.id
+            can [:update, :destroy], Post, :blog_id => user.blog.id
+          end
           can [:create, :upvote, :downvote], Comment
           can :destroy, Comment, :user_id => user.id
 	  can [:update, :destroy], Like, :user_id => user.id
