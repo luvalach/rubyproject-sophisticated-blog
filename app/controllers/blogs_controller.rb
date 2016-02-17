@@ -72,28 +72,18 @@ class BlogsController < ApplicationController
 
   # GET /myblog
   def myblog
-    if current_user
-      if current_user.blog
-        redirect_to blog_path(current_user.blog.id)
-      else 
-        redirect_to new_blog_path
-      end
-    else
-      raise CanCan::AccessDenied.new("Not authorized!", :create, Blog)
-    end
+     redirect_to blog_path(current_user.blog.id)
   end
 
   # GET /myblogsettings
   def editmyblog
-    if current_user
-      if current_user.blog
-        redirect_to edit_blog_path(current_user.blog.id)
-      else 
-        redirect_to new_blog_path
-      end
-    else
-      raise CanCan::AccessDenied.new("Not authorized!", :create, Blog)
-    end
+     redirect_to edit_blog_path(current_user.blog.id)
+  end
+
+  # GET /new_post_on_my_blog
+  def new_post_on_my_blog
+     session[:theme] = current_user.blog.theme
+     redirect_to new_blog_post_path(current_user.blog.id)
   end
 
   # DELETE /blogs/1

@@ -4,11 +4,10 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   # blog of currently signed user
-  get 'myblog' => 'blogs#myblog
+  get 'myblog' => 'blogs#myblog'
 
   # edit settings of blog of currently signed user
-  get 'myblogsettings' => 'blogs#editmyblog
-'
+  get 'myblogsettings' => 'blogs#editmyblog'
 
 
   #blogs

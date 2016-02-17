@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # edit settings of blog of currently signed user
   get 'myblogsettings' => 'blogs#editmyblog'
 
+  # create new post on blog of currently signed user
+  get 'new_post_on_my_blog' => 'blogs#new_post_on_my_blog'
+
 
   #blogs
   resources :blogs, shallow: true do
