@@ -1,9 +1,8 @@
 class BlogsController < ApplicationController
-  # before_action :authenticate_user!
-  before_action :set_blog, only: [:show, :edit, :update, :destroy, :new_post_on_my_blog]
+  before_action :set_blog, only: [:show, :edit, :update, :destroy]
   before_action :set_default_theme, only: [:index]
 
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:myblog, :editmyblog]
 
   # GET /blogs
   # GET /blogs.json
@@ -82,6 +81,7 @@ class BlogsController < ApplicationController
 
   # GET /new_post_on_my_blog
   def new_post_on_my_blog
+     session[:theme] = current_user.blog.theme
      redirect_to new_blog_post_path(current_user.blog.id)
   end
 

@@ -6,7 +6,3 @@
     <%= render :partial => "posts/show_post_row", :collection => @blog.posts, :as => :post %>
   </div>
 </div>
-
-
-
-

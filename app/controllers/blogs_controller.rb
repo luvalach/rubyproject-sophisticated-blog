@@ -28,6 +28,12 @@ class BlogsController < ApplicationController
   # GET /blogs/1.json
   def show
     # @blog.posts.map { |p| p.new_comment = Comment.build_from(p, current_user.id, "") }
+    if params[:tag_name]
+      @blogposts =
+        (Tag.find_by name: params[:tag_name]).posts.order('updated_at DESC')
+    else
+      @blogposts = Post.all.order('updated_at DESC')
+    end
   end
 
   # GET /blogs/new

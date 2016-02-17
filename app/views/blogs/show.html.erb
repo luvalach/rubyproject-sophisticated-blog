@@ -3,6 +3,6 @@
   <p class="lead"><%= @blog.description %></p>
   <p id="notice"><%= notice %></p>
   <div class="blog-posts">
-    <%= render :partial => "posts/show_post_row", :collection => @blog.posts, :as => :post %>
+    <%= render :partial => "posts/show_post_row", :collection => @blogposts, :as => :post %>
   </div>
 </div>

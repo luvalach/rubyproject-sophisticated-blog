@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   # admin part
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+  # Tag filtering
+  get 'blogs/:id/filter/:tag_name', to: 'blogs#show', as: :tag_filter
+
   # blog of currently signed user
   get 'myblog' => 'blogs#myblog'
 

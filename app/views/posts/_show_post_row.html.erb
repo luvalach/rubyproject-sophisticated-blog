@@ -3,7 +3,11 @@
     <h4 class="media-heading">
       <%= post.title %>
       <br>
-      <small><%= post.all_tags %></small>
+      <small>
+        <% post.tags.each do |tag| %>
+          <%= link_to tag.name, tag_filter_path(tag_name: tag.name) %>
+        <% end %>
+      </small>
     </h4>
     <%= post.body.html_safe %>
     <div class="comments-header">
