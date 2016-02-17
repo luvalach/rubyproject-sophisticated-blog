@@ -2,11 +2,6 @@
   <h1><%= @blog.name %></h1>
   <p class="lead"><%= @blog.description %></p>
   <p id="notice"><%= notice %></p>
-  <div class="btn-group" role="group" aria-label="...">
-    <%= link_to 'New Post', new_blog_post_path(@blog), class: "btn btn-default" %></button>
-    <%= link_to 'Edit', edit_blog_path(@blog), class: "btn btn-default" %></button>
-    <%= link_to 'Back', blogs_path, class: "btn btn-default" %></button>
-  </div>
   <div class="blog-posts">
     <%= render :partial => "posts/show_post_row", :collection => @blog.posts, :as => :post %>
   </div>

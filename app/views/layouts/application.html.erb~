@@ -50,6 +50,6 @@
 <% end %>
 
 <%= yield %>
-<% console if defined? consolee %>
+<% console if defined? console %>
 </body>
 </html>
