@@ -15,3 +15,8 @@
 .reply-form {
     display: none;
 }
+
+.show-reply-button {
+    float: right;
+    margin-right: 5px;
+}

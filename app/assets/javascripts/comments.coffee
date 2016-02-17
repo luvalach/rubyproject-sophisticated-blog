@@ -19,6 +19,7 @@ jQuery ->
 
   $(document)
   .on "click", ".show-reply-button", ->
+    console.log('ide to');
     $(this).siblings(".reply-form").toggle();
 
   # handle reply form

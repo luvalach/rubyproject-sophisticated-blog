@@ -2,7 +2,7 @@
 <div class="comment-show" id="comment-<%= comment.id %>" >
   <div class="comment">
     <%= link_to "×", comment_path(comment), :method => :delete, :remote => true, :confirm => "Are you sure you want to remove this comment?", :disable_with => "×", :class => 'close remove-comment-button' %>
-    <%= link_to "Reply","#", class: "show-reply-button " %>
+    <%= link_to "Reply","#", class: "show-reply-button" %>
     <h4>
       <%= comment.user.username %>
       <small><%= comment.updated_at %></small>

@@ -29,17 +29,18 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
-      if user.nil?
-        can :read, :all
-      else
-        # user shouldn't have access to create user or 2nd blog
-        can [:read, :create], :all
+      can :read, :all
+      unless user.nil?
         if user.has_role? :admin
           can :manage, :all
         else
-          can [:update, :destroy, :myblog], Blog, :user_id => user.id
-          can [:update, :destroy], Post, :user_id => user.id
-          # can [:update, :destroy], Comment, :user_id => user.id
+          # user shouldn't have access to create user or 2nd blog
+          can [:create], Blog
+          can [:update, :destroy], Blog, :user_id => user.id
+          user.blog ||= Blog.new
+          can [:create, :update, :destroy], Post, :blog_id => user.blog.id
+          can :create, Comment
+          can :destroy, Comment, :user_id => user.id
 	        can [:update, :destroy], Like, :user_id => user.id
         end
       end
