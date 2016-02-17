@@ -32,7 +32,7 @@ class BlogsController < ApplicationController
       @blogposts =
         (Tag.find_by name: params[:tag_name]).posts.order('updated_at DESC')
     else
-      @blogposts = Post.all.order('updated_at DESC')
+      @blogposts = @blog.posts.order('updated_at DESC')
     end
   end
 

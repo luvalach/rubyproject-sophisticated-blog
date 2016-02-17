@@ -10,19 +10,21 @@
       </small>
     </h4>
     <%= post.body.html_safe %>
-    <div class="comments-header">
-      <h4>
-        <%= post.comment_threads.count == 0 ? "no" : post.comment_threads.count %> comments
-      </h4>
-    </div>
-    <% unless current_user.nil? %>
-    <div class="comment-form">
-      <%= render :partial => "comments/form", :locals => { :comment => Comment.build_from(post, current_user.id, ""), :comment_id => nil } %>
-    </div>
+    <% if @blog.commentable %>
+      <div class="comments-header">
+        <h4>
+          <%= post.comment_threads.count == 0 ? "no" : post.comment_threads.count %> comments
+        </h4>
+      </div>
+      <% unless current_user.nil? %>
+      <div class="comment-form">
+        <%= render :partial => "comments/form", :locals => { :comment => Comment.build_from(post, current_user.id, ""), :comment_id => nil } %>
+      </div>
+      <% end %>
+      <div class="comments-container">
+          <%= render :partial => 'comments/comment', :locals => { comments: post.root_comments } %>
+      </div>
     <% end %>
-    <div class="comments-container">
-        <%= render :partial => 'comments/comment', :locals => { comments: post.root_comments } %>
-    </div>
   </div>
   <div class="media-right">
     <% if can? :update, post %>
