@@ -16,9 +16,9 @@
         <%= link_to "Dislike", dislike_comment_path(comment), method: :put %> | 
         <%= comment.score %>
       <% end %>
-      <% unless comment.approved %> Waiting for approval <% end %>
+      <% unless comment.approved %> Waiting for approval. <% end %>
       <% if @blog.user_id.equal? current_user.id %>
-        <%= link_to "Approve" unless comment.approved %>
+        <%= link_to "Approve", approve_comment_path(comment), method: :put unless comment.approved %>
       <% end %>
     </h4>
     <p><%= comment.body %></p>
