@@ -2,5 +2,8 @@
 
 This is school project "Sophisticated blog", developed in Rails. Project is deployed on Heroku.
 
-Url: [https://github.com/luvalach/rubyproject-sophisticated-blog](https://github.com/luvalach/rubyproject-sophisticated-blog)
+Url: http://rubyproject-sophisticated-blog.herokuapp.com/
 
+Application uses letter opener for email confirmation. You can confirm your account on following url:
+
+http://rubyproject-sophisticated-blog.herokuapp.com/letter_opener
