@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
 
   # admin part
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  Your::Application.routes.draw do
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
   # admin part
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -28,6 +31,7 @@ Rails.application.routes.draw do
     member do
       put "like", to: "comments#upvote"
       put "dislike", to: "comments#downvote"
+      put "approve", to: "comments#approve"
     end
   end
 
